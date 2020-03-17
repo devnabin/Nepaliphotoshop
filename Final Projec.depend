@@ -1,7 +1,5 @@
 # depslib dependency file v1.0
-1584203003 source:c:\users\acer\desktop\nabincodeblockcheck\1.2\final projec\main.cpp
-	<cmath>
-	<cstring>
+1584444023 source:c:\users\acer\desktop\nabincodeblockcheck\1.2\final projec\main.cpp
 	<iostream>
 	<stdio.h>
 	<conio.h>

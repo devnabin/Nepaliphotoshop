@@ -9,8 +9,6 @@ uncomment lists are :-
 2.help section
 
 */
-#include<cmath>
-#include<cstring>
 
 #include <iostream>
 #include<stdio.h>
@@ -19,52 +17,71 @@ uncomment lists are :-
 #include<graphics.h>
 using namespace std;
 
+//**********************
+void xy(int , int );
+void setfillst();
+int setstyle, setcolorr;
+//*************************
+
 
 //Function Decleration
+void init();  //first function having all the other sub function
+
+//polish image
 int polishimage();
-void ptriangle();    // polish image
-void psquare();        //polish image
-void pline();      //polish image
-void pellipse();      //polish imgae
-void pcircle();    //polish image
-void init();        //first function having all the other sub function
+void ptriangle();
+void psquare();
+void pellipse();
+void pcircle();
+
+//adding object in images
+int addobj();
+void draw(int ,int ,int);
+void objcircle();
+int r,t,xvalue;
+int objpie();
+int objtriangle();
+//to add a text in console
+void addtext();
+
+//color help section
+void help();
+
+ //Ending Section
 void Endiing();     //the last end show function
-void draw(int ,int , int); //polish draw wola
-void addtext();  //to add a text in console
-void help();    //to  color selection help
+
 
 
 
 //Global Variable
-int win1 , win2 , win3;
+int win1 =0 , win3 =0 ,win2=0;
+
 
 // variable for the functions of the image display
-char color[2];
+
+//help function
+void help(){
+    if(win3!=0){
+        closegraph(win3);
+        win3=0;
+    }
+
+char color[20];
 int axis_color_x=15;
 int axis_color_y=20;
 
-
-/*
-//help function
-void help(){
-win2 = initwindow(530,530,"help console");
+win3 = initwindow(530,530,"help console");
+setcurrentwindow(win3);
 settextstyle(DEFAULT_FONT,HORIZ_DIR,4);
-setcurrentwindow(win2);
 for(int i =0 ; i<16 ; i++){
         setcolor(i);
-        if(i==0)
-        {
-            setcolor(15);
-        }
         sprintf(color,"%d:",i);
         switch(i)
         {
         case 0:
-            outtextxy(axis_color_x,axis_color_y,color);
-            outtextxy(axis_color_x+85,axis_color_y,"Black");
+
             break;
             case 1:
-
             outtextxy(axis_color_x,axis_color_y,color);
             outtextxy(axis_color_x+85,axis_color_y,"Blue");
             break;
@@ -112,7 +129,7 @@ for(int i =0 ; i<16 ; i++){
 
             case 9:
 
-            outtextxy(axis_color_x,axis_color_y,color);
+        outtextxy(axis_color_x,axis_color_y,color);
             outtextxy(axis_color_x+85,axis_color_y,"Light Blue");
             break;
 
@@ -159,7 +176,7 @@ for(int i =0 ; i<16 ; i++){
 setcurrentwindow(win1);
 }
 
-/*
+
 //Loading screen
 void loadingscreen(int tim){
 settextstyle(DEFAULT_FONT,HORIZ_DIR,7);
@@ -175,11 +192,14 @@ delay(tim);
 cleardevice();
 }
 
-*/
+
 
 //Measurement Scale
 void scale(){
-    setcolor(2);
+    int a;
+    cout << endl << "Enter the color you want to use in SCaling : " ;
+    cin >> a;
+    setcolor(a);
     char arr[100000]={};
         for(int i =0 ; i < 530 ; i+=50){
         line(i,0,i,15);
@@ -187,61 +207,12 @@ void scale(){
         sprintf(arr,"%d",i);
        outtextxy(i,15,arr);
         outtextxy(15,i,arr);
-
-
     }
     rectangle(40,30,500,500);
-
-
 }
- int addobj(){
-
-     cout << "1.TRIANGLE" << endl << "2.Square" << endl << "3.line"  << endl << "4.ellipse"<< endl;
-     int a;
-     cin >> a;
-     switch(a){
- case 1:
-   // mtriangle();
-    break;
- case 2:
-//    msquare();
-    break;
- case 3:
-  //  mline();
-    break;
-    }
-     return 0;
- }
-
-
-/*
-
- void mtriangle(){
-     setcolor(15);
-int xloc , yloc , co;
-cout << "Give the x loaction to draw : " ;
-cin >> xloc;
-cout << "Give the y location to draw : " ;
-cin >> yloc;
-cout << "Enter the color you want to fill : ";
-cin >> co ;
-line(xloc,yloc,xloc+30,yloc+50);
-line(xloc+30,yloc+50,xloc-30,yloc+50);
-line(xloc , yloc , xloc-30 , yloc+50);
-setfillstyle(1,co);
-floodfill(xloc , yloc+5, 15);
- }
-
- */
-
-
-
-
  void psquare(int x , int y , int a){
      rectangle(x,y,x+a,y+a);
  };
-void pline(){
-}
  void ptriangle(int x , int y){
      int points[]={x,y,x+20,y+20,x-20,y+20,x,y};
       fillpoly(4, points);
@@ -269,9 +240,11 @@ void pline(){
          cout << endl;
          goto up;
      }
-     if(getval == 6){
-            return 0;
+     if(getval == 5){
+        return 0;
      }
+
+
      cout << "Enter the color to paint " << endl;
      cin >> setcolorinput;
      setcolor(setcolorinput);
@@ -361,7 +334,6 @@ case 75 :
 break;
 //mtriangle close
     case 3: //circle
-
    cout << "Enter the x co-ordinate for edition : " << endl;
    cin >> x;
    cout << "Enter the y co-ordinate for edition : " << endl;
@@ -498,30 +470,37 @@ outtextxy(x,y,name);
 //init the send main function before main to load image variable or any stuff
 void init(){
     //loading image in console
-
        int a=0;
        char chk=0;
        do{
-       cout << endl << endl <<  "1.ADD OBJ" << endl  << "2.POLISH image" <<endl << "3.REPLACE COLOR" << endl << "4.Add Text" << endl;
+       system("cls");
+       cout << endl << "Choose a number for Manupulation : " << endl << endl;
+       cout <<  "1.Scale"  << endl<< "2.REPLACE COLOR" << endl  << "3.POLISH image" <<endl <<"4.Add Text" <<  endl << "5.Add object "  << endl << "6.Help" << endl << endl;
         cin >> a;
    switch(a){
    case 1 :
-    addobj();
+   scale();
     break;
    case 2:
-    polishimage();
+   bkcolorchange();
     break;
    case 3:
-    bkcolorchange();
+    polishimage();
     break;
    case 4:
-    addtext();
+   addtext();
     break;
+    case 5:
+     addobj();
+     break;
+    case 6:
+    help();
+      break;
    default:
-       cout << "Not a valid input " ;
+   cout << "Not a valid input " ;
     break;
     }
-    cout << "Do You Want to continue" << endl;
+    cout << endl << endl << "Do You Want to continue" << endl;
     cin >> chk;
        } while(chk=='y' || chk=='Y');
 }
@@ -532,22 +511,174 @@ void Ending(){
 
 }
 
+
 //main Program
 int main(){
 
    win1 = initwindow(530,530,"main console");
    setcurrentwindow(win1);
-
-//   help();        //done
+   setbkcolor(BLUE);
    //// loadingscreen(100);
-   scale();
     readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\mypic.jpg",40,30,500,500);
    init();
     Ending();
     getch();
-    closegraph(win1);
-    closegraph(win2);
+    closegraph(win1); //main
+  closegraph(win3);  //help
     return 0;
+}
+
+
+
+ int addobj(){
+ char conti;
+do{
+      conti=' ';
+       int  a=0;
+       cout << endl << endl << "1.TRIANGLE" << endl << "2.Square" << endl << "3.line"  << endl << "4.ellipse" << endl<< "5.pie slice "<< endl;
+     cin >> a;
+     switch(a){
+ case 1:
+    objtriangle();
+    break;
+ case 2:
+   objcircle();
+  // setcolor(2);
+  // cout << " ** " << r << endl << t << endl << xvalue<< endl ;
+   //setfillst();
+  // setfillstyle(style,color);
+//circle(r,t,xvalue);
+    break;
+ case 3:
+
+    break;
+ case 4:
+
+    break;
+ case 5:
+   objpie();
+    break;
+ default:
+    cout << "Invalid Key Pressed 1 " ;
+    conti = 'y' || 'Y';
+    break;
+    }
+    if(conti!='y ' || conti!='Y'){
+    cout << endl << endl << "Do you want to continue (y/Y) " << endl ;
+    cin>> conti;
+    }
+
+}while(conti=='y' || conti=='Y');
+
+     return 0;
+
+ }
+
+
+
+void objcircle(){
+win2 = initwindow(500,500, "win 2");
+int x , y ,z , c;
+cout << "Enter the x co-ordinate for edition : " << endl;
+   cin >> x;
+   cout << "Enter the y co-ordinate for edition : " << endl;
+   cin >> y;
+   cout<< "Enter the size of circle to paint less then 20 is suggested : ";
+   cin >> z;
+setcurrentwindow(win2);
+setcolor(2);
+   while(1){
+   c=getch();
+  cleardevice();
+   if(c == 72 || c ==80 || c ==77 || c ==75 || c ==13 ){
+   switch(c){
+case 72 :
+    cout << " you enter up arrow \n";
+    y--;
+    cout << " y cordinate is s: " <<  y  << "  " ;
+draw(x,y,z);
+    break;
+case 80 :
+    cout << "you enter down arrow \n";
+    y++;
+   cout << " y cordinate is s: " <<  y  << "  " ;
+draw(x,y,z);
+    break ;
+case 77 :
+    cout << "you enter right arrow \n";
+    x++;
+    cout << " x cordinate is s: " << x  << "  " ;
+draw(x,y,z);
+    break ;
+case 75 :
+    cout << "you enter left arrow \n";
+    x--;
+    cout << " x crdinate is s: " << x  << "  " ;
+draw(x,y,z);
+    break;
+case 13 :
+closegraph(win2);
+setcurrentwindow(win1);
+setcolor(15);
+setfillst();
+cout << endl <<  "color " << setcolorr  << endl;
+cout << "style " << setstyle << endl ;
+circle(x,y,z);
+setfillstyle(setstyle,setcolorr);
+floodfill(x,y,15);
+cout << endl << " ***** test obj  *****   " << endl;
+break;
+}
+}
+if(c==13){
+    break;
+}
+}
+}
+
+void draw(int a , int b,int c){
+    readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\testedit.jpg",40,30,500,500);
+    setcolor(2);
+    circle(a,b,c);
+  floodfill(a+1, b+1,2);
+}
+
+
+
+
+ int objtriangle(){
+     setcolor(15);
+int xloc , yloc;
+cout << "Give the x loaction to draw : " ;
+cin >> xloc;
+cout << "Give the y location to draw : " ;
+cin >> yloc;
+line(xloc,yloc,xloc+50,yloc+70);
+line(xloc+50,yloc+70,xloc-50,yloc+70);
+line(xloc , yloc , xloc-50 , yloc+70);
+setfillst();
+floodfill(xloc , yloc+5, 15);
+return 0;
+ }
+
+
+
+ int objpie(){
+setfillst();
+pieslice(200, 200, 0, 135, 100);
+ }
+
+
+
+
+
+void setfillst(){
+setstyle =0 ;
+setcolorr =0;
+cout << endl << "Enter the style ranges from 1-10 : " ;
+cin >> setstyle;
+cout << "Enter the Color ranges from 0-15 : ";
+cin >> setcolorr;
 }
 
 
