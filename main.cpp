@@ -36,14 +36,18 @@ void pcircle();
 
 //adding object in images
 int addobj();
-void draw(int ,int ,int);
-void objcircle();
-int r,t,xvalue;
-int objpie();
-int objtriangle();
+void circledraw(int ,int ,int);
+void xyplusminus(int ,int , int ,int);
+void objglasses(int , int );
+void objpie(int ,int);
+void objtriangle(int ,int);
+void objellipse(int ,int);
+//void objline(int int ,int, int);
+
+
+
 //to add a text in console
 void addtext();
-
 //color help section
 void help();
 
@@ -55,6 +59,7 @@ void Endiing();     //the last end show function
 
 //Global Variable
 int win1 =0 , win3 =0 ,win2=0;
+//int r,t,xvalue;
 
 
 // variable for the functions of the image display
@@ -197,8 +202,8 @@ cleardevice();
 //Measurement Scale
 void scale(){
     int a;
-    cout << endl << "Enter the color you want to use in SCaling : " ;
-    cin >> a;
+   cout << endl << "Enter the color you want to use in SCaling : " ;
+   cin >> a;
     setcolor(a);
     char arr[100000]={};
         for(int i =0 ; i < 530 ; i+=50){
@@ -474,8 +479,9 @@ void init(){
        char chk=0;
        do{
        system("cls");
-       cout << endl << "Choose a number for Manupulation : " << endl << endl;
-       cout <<  "1.Scale"  << endl<< "2.REPLACE COLOR" << endl  << "3.POLISH image" <<endl <<"4.Add Text" <<  endl << "5.Add object "  << endl << "6.Help" << endl << endl;
+       cout << endl << "Home Menu : " ;
+       cout << endl << "Choose a number for Manupulation : " << endl << endl << endl << endl;
+       cout <<  "1.Scale"  << endl<< "2.REPLACE COLOR" << endl  << "3.POLISH image" <<endl <<"4.Add Text" <<  endl << "5.Add object "  << endl << "6.Help" << endl <<endl <<  endl;
         cin >> a;
    switch(a){
    case 1 :
@@ -500,7 +506,7 @@ void init(){
    cout << "Not a valid input " ;
     break;
     }
-    cout << endl << endl << "Do You Want to continue" << endl;
+    cout << endl << endl << "Do You Want to continue the Home Menu : " << endl;
     cin >> chk;
        } while(chk=='y' || chk=='Y');
 }
@@ -517,10 +523,11 @@ int main(){
 
    win1 = initwindow(530,530,"main console");
    setcurrentwindow(win1);
-   setbkcolor(BLUE);
-   //// loadingscreen(100);
+
+//loadingscreen(100);
     readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\mypic.jpg",40,30,500,500);
-   init();
+
+ init();
     Ending();
     getch();
     closegraph(win1); //main
@@ -531,33 +538,72 @@ int main(){
 
 
  int addobj(){
+           system("cls");
  char conti;
+ int x, y, rad;
 do{
+         system("cls");
       conti=' ';
        int  a=0;
-       cout << endl << endl << "1.TRIANGLE" << endl << "2.Square" << endl << "3.line"  << endl << "4.ellipse" << endl<< "5.pie slice "<< endl;
+        cout << endl << endl << "Add obj Menu : " << endl << endl ;
+       cout << endl << endl << "1.TRIANGLE" << endl << "2.Square" << endl << "3.line"  << endl << "4.ellipse" << endl<< "5.pie slice "<<endl << "6.Glasses" <<endl << endl << endl;
      cin >> a;
      switch(a){
- case 1:
-    objtriangle();
+ case 1:  //triangle
+     cout << "Enter the x co-ordinate for edition : " << endl;
+   cin >> x;
+   cout << "Enter the y co-ordinate for edition : " << endl;
+   cin >> y;
+    xyplusminus(x,y,0,a);
     break;
- case 2:
-   objcircle();
-  // setcolor(2);
-  // cout << " ** " << r << endl << t << endl << xvalue<< endl ;
-   //setfillst();
-  // setfillstyle(style,color);
-//circle(r,t,xvalue);
+ case 2:  //square
+   cout << "Enter the x co-ordinate for edition : " << endl;
+   cin >> x;
+   cout << "Enter the y co-ordinate for edition : " << endl;
+   cin >> y;
+   cout<< "Enter the size of circle to paint less then 20 is suggested : ";
+   cin >> rad;
+   xyplusminus(x,y,rad,a);
     break;
  case 3:
+     int get;
+     cout << "Use by default line (y/Y) : ";
+     cin >> get;
+     if(get=='y' || get == 'Y' ){
+      xyplusminus(250,300,0,a);
+     }else{
+          cout << "Enter the x1 co-ordinate for edition : " << endl;
+   cin >> x;
+   cout << "Enter the y1 co-ordinate for edition : " << endl;
+   cin >> y;
+    cout << "Enter the x1 co-ordinate for edition : " << endl;
+  // cin >> ;
+   cout << "Enter the y1 co-ordinate for edition : " << endl;
+  // cin >> ;
+     }
 
     break;
- case 4:
-
+ case 4: //ellipse
+     cout<< "Enter the x co-ordinate : ";
+     cin >> x;
+     cout << "Enter the y co-ordinate : ";
+     cin >> y;
+     xyplusminus(x,y,0,a);
     break;
  case 5:
-   objpie();
+     cout<< "Enter the x co-ordinate : ";
+     cin >> x;
+     cout << "Enter the y co-ordinate : ";
+     cin >> y;
+     xyplusminus(x,y,0,a);
     break;
+ case 6: //glasses
+     cout<< "Enter the x co-ordinate : ";
+     cin >> x;
+     cout << "Enter the y co-ordinate : ";
+     cin >> y;
+     xyplusminus(x,y,0,a);
+     break;
  default:
     cout << "Invalid Key Pressed 1 " ;
     conti = 'y' || 'Y';
@@ -574,8 +620,232 @@ do{
 
  }
 
+void xyplusminus(int x=0 , int y=0 ,int rad=0 , int chk=0){
+win2 = initwindow(500,500, "win 2");
+setcurrentwindow(win2);
+setcolor(2);
+int c;
+   while(1){
+   c=getch();
+  cleardevice();
+  setcolor(15);
+   if(c == 72 || c ==80 || c ==77 || c ==75 || c ==13 ){
+        readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\testedit.jpg",40,30,500,500);
+   switch(c){
+case 72 :
+    cout << " you enter up arrow \n";
+    y--;
+    switch(chk){
+    case 1: //triangle
+       objtriangle(x,y);
+        break;
+    case 2:  //square
+        circledraw(x,y,rad);
+        break;
+    case 3://line
+        break;
+    case 4: //Ellipse
+        objellipse(x,y);
+        break;
+    case 5: //Piechart
+        objpie(x,y);
+        break;
+    case 6: //glasses
+        objglasses(x,y);
+        break;
+    }
+
+    break;
+case 80 :
+    cout << "you enter down arrow \n";
+    y++;
+        switch(chk){
+    case 1: //triangle
+        objtriangle(x,y);
+        break;
+    case 2:  //square
+        circledraw(x,y,rad);
+        break;
+    case 3://line
+        break;
+    case 4: //Ellipse
+        objellipse(x,y);
+        break;
+    case 5: //Piechart
+        objpie(x,y);
+        break;
+            case 6: //glasses
+        objglasses(x,y);
+        break;
+    }
+
+    break ;
+case 77 :
+    cout << "you enter right arrow \n";
+    x++;
+        switch(chk){
+    case 1: //triangle
+        objtriangle(x,y);
+        break;
+    case 2:  //square
+        circledraw(x,y,rad);
+        break;
+    case 3://line
+        break;
+    case 4: //Ellipse
+        objellipse(x,y);
+        break;
+    case 5: //Piechart
+        objpie(x,y);
+        break;
+            case 6: //glasses
+        objglasses(x,y);
+        break;
+    }
+
+    break ;
+case 75 :
+    cout << "you enter left arrow \n";
+    x--;
+        switch(chk){
+    case 1: //triangle
+        objtriangle(x,y);
+        break;
+    case 2:  //square
+        circledraw(x,y,rad);
+        break;
+    case 3://line
+        break;
+    case 4: //Ellipse
+        objellipse(x,y);
+        break;
+    case 5: //Piechart
+        objpie(x,y);
+        break;
+            case 6: //glasses
+        objglasses(x,y);
+        break;
+    }
+
+    break;
+case 13 :
+
+closegraph(win2);
+setcurrentwindow(win1);
+    if(chk!=5){
+    setcolor(15);
+setfillst();
+setfillstyle(setstyle,setcolorr);
+cout << "obj test " ;
+    }
+cout << endl <<  "color " << setcolorr  << endl;
+cout << "style " << setstyle << endl ;
+    switch(chk){
+    case 1: //triangle
+line(x,y,x+50,y+70);
+line(x+50,y+70,x-50,y+70);
+line(x , y , x-50 , y+70);
+floodfill(x , y+5, 15);
+        break;
+    case 2:  //square
+circle(x,y,rad);
+floodfill(x,y,15);
+        break;
+    case 3://line
+        break;
+    case 4: //Ellipse
+ellipse(x,y , 0, 360, 50, 25);
+floodfill(x,y,15);
+        break;
+    case 5: //Piechart
+setfillstyle(5,14);
+pieslice(x, y, 0,90,50);
+        break;
+    case 6: //glasses
+   circle(x,y,30);
+   circle(x+90,y,30);
+   arc(x+45, y,  0, 180, 17);
+   arc(x+45, y, 0, 180, 15);
+   floodfill(x,y,15);
+   floodfill(x+90,y,15);
+     break;
+    }
+
+break;
+}
+}
+if(c==13){
+break;
+}
+}
+}
+
+void circledraw(int a , int b,int c){
+    setcolor(2);
+    circle(a,b,c);
+  floodfill(a+1, b+1,2);
+}
+
+void objtriangle(int xloc , int yloc){
+line(xloc,yloc,xloc+50,yloc+70);
+line(xloc+50,yloc+70,xloc-50,yloc+70);
+line(xloc , yloc , xloc-50 , yloc+70);
+floodfill(xloc , yloc+5, 15);
+ }
+
+void objellipse(int x , int y){
+ellipse(x,y , 0, 360, 50, 25);
+floodfill(x, y+5, 15);
+}
+
+void objpie(int x,int y){
+pieslice(x, y, 0, 90, 50);
+ }
+
+ void objglasses(int x, int y){
+   setcolor(10);
+   circle(x,y,30);
+   circle(x+90,y,30);
+   arc(x+45, y,  0, 180, 17);
+   arc(x+45, y, 0, 180, 15);
+   setfillstyle(4,6);
+   floodfill(x,y,10);
+  floodfill(x+90,y,10);
+
+/*
+   circle(225,200,30);
+   arc(270, 200, 0, 180, 17);
+   arc(270, 200, 0, 180, 15);
+    line(345,200,355,195);//right stand
+    line(345,205,355,195);
+   line(195,200,180,195);//left
+   line(195,205,180,195);
+   circle(315,200,30);
+ setfillstyle(4,6);
+   floodfill(225,200,10);
+  floodfill(315,200,10);
+*/
+
+ }
 
 
+
+
+
+void setfillst(){
+setstyle =0 ;
+setcolorr =0;
+cout << endl << "Enter the style ranges from 1-10 : " ;
+cin >> setstyle;
+cout << "Enter the Color ranges from 0-15 : ";
+cin >> setcolorr;
+}
+
+
+
+
+
+ /*
 void objcircle(){
 win2 = initwindow(500,500, "win 2");
 int x , y ,z , c;
@@ -635,50 +905,4 @@ if(c==13){
 }
 }
 }
-
-void draw(int a , int b,int c){
-    readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\testedit.jpg",40,30,500,500);
-    setcolor(2);
-    circle(a,b,c);
-  floodfill(a+1, b+1,2);
-}
-
-
-
-
- int objtriangle(){
-     setcolor(15);
-int xloc , yloc;
-cout << "Give the x loaction to draw : " ;
-cin >> xloc;
-cout << "Give the y location to draw : " ;
-cin >> yloc;
-line(xloc,yloc,xloc+50,yloc+70);
-line(xloc+50,yloc+70,xloc-50,yloc+70);
-line(xloc , yloc , xloc-50 , yloc+70);
-setfillst();
-floodfill(xloc , yloc+5, 15);
-return 0;
- }
-
-
-
- int objpie(){
-setfillst();
-pieslice(200, 200, 0, 135, 100);
- }
-
-
-
-
-
-void setfillst(){
-setstyle =0 ;
-setcolorr =0;
-cout << endl << "Enter the style ranges from 1-10 : " ;
-cin >> setstyle;
-cout << "Enter the Color ranges from 0-15 : ";
-cin >> setcolorr;
-}
-
-
+*/
