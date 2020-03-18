@@ -40,8 +40,10 @@ void circledraw(int ,int ,int);
 void xyplusminus(int ,int , int ,int);
 void objglasses(int , int );
 void objpie(int ,int);
+void objline(int , int );
 void objtriangle(int ,int);
 void objellipse(int ,int);
+void bydefaultglasses();
 //void objline(int int ,int, int);
 
 
@@ -58,7 +60,7 @@ void Endiing();     //the last end show function
 
 
 //Global Variable
-int win1 =0 , win3 =0 ,win2=0;
+int loading , win1 =0 , win3 =0 ,win2=0;
 //int r,t,xvalue;
 
 
@@ -184,17 +186,22 @@ setcurrentwindow(win1);
 
 //Loading screen
 void loadingscreen(int tim){
-settextstyle(DEFAULT_FONT,HORIZ_DIR,7);
-outtextxy(80,50,"LOADING...");
-for(int a=0;a<=500;a=a+10){
- putpixel(50+a,150,3);
-  putpixel(50+a,155,3);
-  putpixel(50+a,305,9);
-  putpixel(50+a,300,9);
-rectangle(50+a,200,100+a,250);
-delay(tim);
+    loading =initwindow(1600,800,"Loading console");
+    setcurrentwindow(loading);
+settextstyle(DEFAULT_FONT,HORIZ_DIR,8);
+setcolor(15);
+for(int i =0 ; i<getmaxx(); i+=3){
+readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\loading.jpg",0,0,getmaxx(),500);
+setcolor(10);
+outtextxy(i,620,"||||");
+setcolor(14);
+ rectangle(10,600,getmaxx()-10,700);
+ rectangle(15,605,getmaxx()-15 , 695);
 }
-cleardevice();
+settextstyle(DEFAULT_FONT,HORIZ_DIR,4);
+outtextxy(320,633,"Press Any Key To Continue ...");
+getch();
+closegraph(loading);
 }
 
 
@@ -521,13 +528,11 @@ void Ending(){
 //main Program
 int main(){
 
+//loadingscreen(100);
    win1 = initwindow(530,530,"main console");
    setcurrentwindow(win1);
-
-//loadingscreen(100);
     readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\mypic.jpg",40,30,500,500);
-
- init();
+     init();
     Ending();
     getch();
     closegraph(win1); //main
@@ -565,22 +570,13 @@ do{
    cin >> rad;
    xyplusminus(x,y,rad,a);
     break;
- case 3:
-     int get;
-     cout << "Use by default line (y/Y) : ";
-     cin >> get;
-     if(get=='y' || get == 'Y' ){
-      xyplusminus(250,300,0,a);
-     }else{
-          cout << "Enter the x1 co-ordinate for edition : " << endl;
+ case 3: //line
+
+cout << "Enter the x1 co-ordinate for edition : " << endl;
    cin >> x;
    cout << "Enter the y1 co-ordinate for edition : " << endl;
    cin >> y;
-    cout << "Enter the x1 co-ordinate for edition : " << endl;
-  // cin >> ;
-   cout << "Enter the y1 co-ordinate for edition : " << endl;
-  // cin >> ;
-     }
+     xyplusminus(x,y,0,a);
 
     break;
  case 4: //ellipse
@@ -598,11 +594,21 @@ do{
      xyplusminus(x,y,0,a);
     break;
  case 6: //glasses
-     cout<< "Enter the x co-ordinate : ";
+     char glass;
+     cout << "Do You want to add by default glasses (y/Y || n/N) : " ;
+     cin >> glass;
+     if(glass == 'y' || glass == 'Y'){
+            cout << "y / y inside " ;
+      bydefaultglasses();
+     }else{
+         cout << "inside else loop ";
+      cout<< "Enter the x co-ordinate : ";
      cin >> x;
      cout << "Enter the y co-ordinate : ";
      cin >> y;
      xyplusminus(x,y,0,a);
+     }
+
      break;
  default:
     cout << "Invalid Key Pressed 1 " ;
@@ -610,7 +616,7 @@ do{
     break;
     }
     if(conti!='y ' || conti!='Y'){
-    cout << endl << endl << "Do you want to continue (y/Y) " << endl ;
+    cout << endl << endl << "Do you want to continue (y/Y) || (n/N) " << endl ;
     cin>> conti;
     }
 
@@ -629,7 +635,7 @@ int c;
    c=getch();
   cleardevice();
   setcolor(15);
-   if(c == 72 || c ==80 || c ==77 || c ==75 || c ==13 ){
+   if(c == 72 || c ==80 || c ==77 || c ==75 || c ==13  || c==8){
         readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\testedit.jpg",40,30,500,500);
    switch(c){
 case 72 :
@@ -643,6 +649,7 @@ case 72 :
         circledraw(x,y,rad);
         break;
     case 3://line
+        objline(x,y);
         break;
     case 4: //Ellipse
         objellipse(x,y);
@@ -667,6 +674,7 @@ case 80 :
         circledraw(x,y,rad);
         break;
     case 3://line
+         objline(x,y);
         break;
     case 4: //Ellipse
         objellipse(x,y);
@@ -691,6 +699,7 @@ case 77 :
         circledraw(x,y,rad);
         break;
     case 3://line
+         objline(x,y);
         break;
     case 4: //Ellipse
         objellipse(x,y);
@@ -715,6 +724,7 @@ case 75 :
         circledraw(x,y,rad);
         break;
     case 3://line
+         objline(x,y);
         break;
     case 4: //Ellipse
         objellipse(x,y);
@@ -729,10 +739,9 @@ case 75 :
 
     break;
 case 13 :
-
 closegraph(win2);
 setcurrentwindow(win1);
-    if(chk!=5){
+    if(chk!=5 && chk!=3){
     setcolor(15);
 setfillst();
 setfillstyle(setstyle,setcolorr);
@@ -752,10 +761,16 @@ circle(x,y,rad);
 floodfill(x,y,15);
         break;
     case 3://line
+        int setc;
+    cout << "Enter  the color of the line you want : ";
+    cin >> setc;
+    setcolor(setc);
+  objline(x,y);
         break;
     case 4: //Ellipse
+        setcolor(2);
 ellipse(x,y , 0, 360, 50, 25);
-floodfill(x,y,15);
+floodfill(x,y,2);
         break;
     case 5: //Piechart
 setfillstyle(5,14);
@@ -772,9 +787,13 @@ pieslice(x, y, 0,90,50);
     }
 
 break;
+    case 8:
+closegraph(win2);
+setcurrentwindow(win1);
+        break;
 }
 }
-if(c==13){
+if(c==13 || c ==8){
 break;
 }
 }
@@ -787,19 +806,27 @@ void circledraw(int a , int b,int c){
 }
 
 void objtriangle(int xloc , int yloc){
+    setcolor(2);
 line(xloc,yloc,xloc+50,yloc+70);
 line(xloc+50,yloc+70,xloc-50,yloc+70);
 line(xloc , yloc , xloc-50 , yloc+70);
-floodfill(xloc , yloc+5, 15);
+floodfill(xloc , yloc+5, 2);
  }
 
 void objellipse(int x , int y){
+    setcolor(2);
 ellipse(x,y , 0, 360, 50, 25);
-floodfill(x, y+5, 15);
+floodfill(x, y+5,2);
 }
 
 void objpie(int x,int y){
 pieslice(x, y, 0, 90, 50);
+ }
+
+
+ void objline(int x ,int y){
+ setcolor(4);
+ line(x,y,x+200,y);
  }
 
  void objglasses(int x, int y){
@@ -811,9 +838,12 @@ pieslice(x, y, 0, 90, 50);
    setfillstyle(4,6);
    floodfill(x,y,10);
   floodfill(x+90,y,10);
+ }
 
-/*
-   circle(225,200,30);
+
+void bydefaultglasses(){
+    setcolor(0);
+     circle(225,200,30);
    arc(270, 200, 0, 180, 17);
    arc(270, 200, 0, 180, 15);
     line(345,200,355,195);//right stand
@@ -821,15 +851,10 @@ pieslice(x, y, 0, 90, 50);
    line(195,200,180,195);//left
    line(195,205,180,195);
    circle(315,200,30);
- setfillstyle(4,6);
-   floodfill(225,200,10);
-  floodfill(315,200,10);
-*/
-
- }
-
-
-
+   setfillstyle(6,4);
+   floodfill(225,200,0);
+  floodfill(315,200,0);
+}
 
 
 void setfillst(){
@@ -842,67 +867,3 @@ cin >> setcolorr;
 }
 
 
-
-
-
- /*
-void objcircle(){
-win2 = initwindow(500,500, "win 2");
-int x , y ,z , c;
-cout << "Enter the x co-ordinate for edition : " << endl;
-   cin >> x;
-   cout << "Enter the y co-ordinate for edition : " << endl;
-   cin >> y;
-   cout<< "Enter the size of circle to paint less then 20 is suggested : ";
-   cin >> z;
-setcurrentwindow(win2);
-setcolor(2);
-   while(1){
-   c=getch();
-  cleardevice();
-   if(c == 72 || c ==80 || c ==77 || c ==75 || c ==13 ){
-   switch(c){
-case 72 :
-    cout << " you enter up arrow \n";
-    y--;
-    cout << " y cordinate is s: " <<  y  << "  " ;
-draw(x,y,z);
-    break;
-case 80 :
-    cout << "you enter down arrow \n";
-    y++;
-   cout << " y cordinate is s: " <<  y  << "  " ;
-draw(x,y,z);
-    break ;
-case 77 :
-    cout << "you enter right arrow \n";
-    x++;
-    cout << " x cordinate is s: " << x  << "  " ;
-draw(x,y,z);
-    break ;
-case 75 :
-    cout << "you enter left arrow \n";
-    x--;
-    cout << " x crdinate is s: " << x  << "  " ;
-draw(x,y,z);
-    break;
-case 13 :
-closegraph(win2);
-setcurrentwindow(win1);
-setcolor(15);
-setfillst();
-cout << endl <<  "color " << setcolorr  << endl;
-cout << "style " << setstyle << endl ;
-circle(x,y,z);
-setfillstyle(setstyle,setcolorr);
-floodfill(x,y,15);
-cout << endl << " ***** test obj  *****   " << endl;
-break;
-}
-}
-if(c==13){
-    break;
-}
-}
-}
-*/
