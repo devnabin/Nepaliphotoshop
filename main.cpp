@@ -190,7 +190,7 @@ void loadingscreen(int tim){
 settextstyle(DEFAULT_FONT,HORIZ_DIR,8);
 setcolor(15);
 for(int i =0 ; i<getmaxx(); i+=3){
-readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\loading.jpg",0,0,getmaxx(),500);
+readimagefile("C:\\Users\\Acer\\Desktop\\nabincodeblockcheck\\1.2\\Final Projec\\src\\loading.jpg",0,0,getmaxx(),500);
 setcolor(10);
 outtextxy(i,620,"||||");
 setcolor(14);
@@ -656,7 +656,7 @@ int c;
   cleardevice();
   setcolor(15);
    if(c == 72 || c ==80 || c ==77 || c ==75 || c ==13  || c==8){
-        readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\testedit.jpg",40,30,500,500);
+        readimagefile("C:\\Users\\Acer\\Desktop\\nabincodeblockcheck\\1.2\\Final Projec\\src\\mypic.jpg",40,30,500,500);
    switch(c){
 case 72 :
     cout << " you enter up arrow \n";
@@ -907,7 +907,7 @@ int main(){
    loadingscreen(100);
     win1 = initwindow(530,530,"main console");
     setcurrentwindow(win1);
-    readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\mypic.jpg",40,30,500,500);
+    readimagefile("C:\\Users\\Acer\\Desktop\\nabincodeblockcheck\\1.2\\Final Projec\\src\\mypic.jpg",40,30,500,500);
     init();
     Ending();
     getch();
