@@ -1,9 +1,9 @@
- <p> <center> <h1><b>NepaliPhotoshop </b></h1> </center>
-
-
+<p align="center">
+    <h1 align="center">Anurag Hazra</h1>
+</p> 
 ![](src/loading.jpg)
 
-</p>
+
 
 ---
 
