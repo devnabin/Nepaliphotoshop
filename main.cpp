@@ -1,15 +1,3 @@
-/*
-version 1.0
-NepaliPhotoshop
-*/
-
-/*
-uncomment lists are :-
-1.Loading screen
-2.help section
-
-*/
-
 #include <iostream>
 #include<stdio.h>
 #include<conio.h>
@@ -17,57 +5,62 @@ uncomment lists are :-
 #include<graphics.h>
 using namespace std;
 
-//**********************
-void xy(int , int );
-void setfillst();
-int setstyle, setcolorr;
-//*************************
 
 
 //Function Decleration
 void init();  //first function having all the other sub function
 
+
 //polish image
-int polishimage();
-void ptriangle();
-void psquare();
-void pellipse();
-void pcircle();
+int polishimage();     //main function polish option
+void ptriangle();      //Triangle polish feature
+void psquare();         //square object to polish
+void pellipse();        //Ellipse object to paint
+void pcircle();        //circle object to paint
+
+
 
 //adding object in images
-int addobj();
-void circledraw(int ,int ,int);
-void xyplusminus(int ,int , int ,int);
-void objglasses(int , int );
-void objpie(int ,int);
-void objline(int , int );
-void objtriangle(int ,int);
-void objellipse(int ,int);
-void bydefaultglasses();
-//void objline(int int ,int, int);
+int addobj();   //main object
+void xyplusminus(int ,int , int ,int); //key functionality
+void circledraw(int ,int ,int);  //circle draw
+void objpie(int ,int);           //pie
+void objline(int , int );         //objline
+void objtriangle(int ,int);       //triangle
+void objellipse(int ,int);         //ellipse
+void bydefaultglasses();           //bydefault glasse
+void objglasses(int , int );       //objglasses
+
 
 
 
 //to add a text in console
-void addtext();
-//color help section
-void help();
+void addtext();                   //It is use to add text on the screen
+
 
  //Ending Section
-void Endiing();     //the last end show function
+void Endiing();     //the last function
 
+
+
+//minized funtion of setfillstyle();
+void setfillst();
 
 
 
 //Global Variable
-int loading , win1 =0 , win3 =0 ,win2=0;
-//int r,t,xvalue;
+int loading , win1 =0 , win3 =0 ,win2=0;    //init windows variables
+int setstyle, setcolorr;  //Variables used inside setfillst();
 
 
-// variable for the functions of the image display
 
-//help function
-void help(){
+
+
+
+
+//*************************************************************************************************************
+//help function ||  color help section
+void help(){     //used to display the color patter with respective key values
     if(win3!=0){
         closegraph(win3);
         win3=0;
@@ -184,7 +177,13 @@ setcurrentwindow(win1);
 }
 
 
-//Loading screen
+//*************************************************************************************************************
+//Loading screen | WElcome Screen
+
+
+
+
+
 void loadingscreen(int tim){
     loading =initwindow(1600,800,"Loading console");
     setcurrentwindow(loading);
@@ -206,7 +205,12 @@ closegraph(loading);
 
 
 
-//Measurement Scale
+
+//*************************************************************************************************************
+//Measurement Scale show in the corner of the image
+
+
+
 void scale(){
     int a;
    cout << endl << "Enter the color you want to use in SCaling : " ;
@@ -237,6 +241,12 @@ void scale(){
 
      ellipse(x,y,0,360,10,20);
  };
+
+
+
+
+ //*************************************************************************************************************
+ //paint or polish function in project
 
 
 
@@ -425,7 +435,11 @@ break;
 
 }}
 
+
+//*************************************************************************************************************
 //background change
+
+
  void bkcolorchange(){
      int a ,b;
       cout << "Enter the color which you want to replace" << endl;
@@ -445,7 +459,11 @@ break;
 }
 
 
+
+//**************************************************************************************************************************
 //add text
+
+
 
 void addtext(){
 int color , x , y , fontsize ,dir =0 ;
@@ -478,10 +496,11 @@ outtextxy(x,y,name);
 }
 
 
+//*************************************************************************************************************
+
 
 //init the send main function before main to load image variable or any stuff
 void init(){
-    //loading image in console
        int a=0;
        char chk=0;
        do{
@@ -518,32 +537,25 @@ void init(){
        } while(chk=='y' || chk=='Y');
 }
 
+
+
+//*************************************************************************************************************
 //Ending
+
+
+
 void Ending(){
     cout << "THANKS FOR USING MY TOOL" << endl;
 
 }
 
 
-//main Program
-int main(){
 
-//loadingscreen(100);
-   win1 = initwindow(530,530,"main console");
-   setcurrentwindow(win1);
-    readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\mypic.jpg",40,30,500,500);
-     init();
-    Ending();
-    getch();
-    closegraph(win1); //main
-  closegraph(win3);  //help
-    return 0;
-}
-
-
-
- int addobj(){
-           system("cls");
+//*************************************************************************************************************
+//---------------------------------------------------------------------------------------------------------------
+//Main menu features to add object  and other object for editing
+ int addobj(){   //addobj features in  main menu
+  system("cls");  //clear the input console
  char conti;
  int x, y, rad;
 do{
@@ -625,6 +637,14 @@ cout << "Enter the x1 co-ordinate for edition : " << endl;
      return 0;
 
  }
+
+
+
+
+//---------------------------------------------------------------------------------------------------------------
+ //This function increases / decreases the the x and y coordinate
+
+
 
 void xyplusminus(int x=0 , int y=0 ,int rad=0 , int chk=0){
 win2 = initwindow(500,500, "win 2");
@@ -785,7 +805,6 @@ pieslice(x, y, 0,90,50);
    floodfill(x+90,y,15);
      break;
     }
-
 break;
     case 8:
 closegraph(win2);
@@ -799,37 +818,39 @@ break;
 }
 }
 
-void circledraw(int a , int b,int c){
+
+//---------------------------------------------------------------------------------------------------------------
+void circledraw(int a , int b,int c){   //set the circle in preview editing window
     setcolor(2);
     circle(a,b,c);
   floodfill(a+1, b+1,2);
 }
-
-void objtriangle(int xloc , int yloc){
+//---------------------------------------------------------------------------------------------------------------
+void objtriangle(int xloc , int yloc){    //setthe triangle in preview editing window
     setcolor(2);
 line(xloc,yloc,xloc+50,yloc+70);
 line(xloc+50,yloc+70,xloc-50,yloc+70);
 line(xloc , yloc , xloc-50 , yloc+70);
 floodfill(xloc , yloc+5, 2);
  }
-
-void objellipse(int x , int y){
+//---------------------------------------------------------------------------------------------------------------
+void objellipse(int x , int y){           //set the ellipse in preview editing window
     setcolor(2);
 ellipse(x,y , 0, 360, 50, 25);
 floodfill(x, y+5,2);
 }
-
-void objpie(int x,int y){
+//---------------------------------------------------------------------------------------------------------------
+void objpie(int x,int y){                 //set the pie in preview editing window
 pieslice(x, y, 0, 90, 50);
  }
 
-
- void objline(int x ,int y){
+//---------------------------------------------------------------------------------------------------------------
+ void objline(int x ,int y){             //set the line in preview editing window
  setcolor(4);
  line(x,y,x+200,y);
  }
-
- void objglasses(int x, int y){
+//---------------------------------------------------------------------------------------------------------------
+ void objglasses(int x, int y){           //set the obj in preview editing window
    setcolor(10);
    circle(x,y,30);
    circle(x+90,y,30);
@@ -840,10 +861,14 @@ pieslice(x, y, 0, 90, 50);
   floodfill(x+90,y,10);
  }
 
+//---------------------------------------------------------------------------------------------------------------
+//This function is used to set the by default glass without interfering with xyplusminus function
+
+
 
 void bydefaultglasses(){
-    setcolor(0);
-     circle(225,200,30);
+   setcolor(0);
+   circle(225,200,30);
    arc(270, 200, 0, 180, 17);
    arc(270, 200, 0, 180, 15);
     line(345,200,355,195);//right stand
@@ -853,8 +878,14 @@ void bydefaultglasses(){
    circle(315,200,30);
    setfillstyle(6,4);
    floodfill(225,200,0);
-  floodfill(315,200,0);
+   floodfill(315,200,0);
 }
+
+
+
+
+//*************************************************************************************************************
+//this function sates the setsyle and set color values for global change in setfillstyle
 
 
 void setfillst(){
@@ -865,5 +896,27 @@ cin >> setstyle;
 cout << "Enter the Color ranges from 0-15 : ";
 cin >> setcolorr;
 }
+
+
+
+
+//*************************************************************************************************************
+//main Program
+int main(){
+
+   loadingscreen(100);
+    win1 = initwindow(530,530,"main console");
+    setcurrentwindow(win1);
+    readimagefile("C:\\Users\\Acer\\OneDrive\\Pictures\\mypic.jpg",40,30,500,500);
+    init();
+    Ending();
+    getch();
+    closegraph(win1); //main window close
+    closegraph(win3);  //close the help window
+    return 0;
+}
+//*************************************************************************************************************
+
+
 
 
