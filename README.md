@@ -1,6 +1,8 @@
 <p align="center">
-    <h1 align="center">Anurag Hazra</h1>
+    <h1 align="center">Nepali Photoshop
+</h1>
 </p> 
+
 ![](src/loading.jpg)
 
 
